@@ -17,37 +17,72 @@ eraser.onclick = function() {
 
 autoSizeCanvasSize(canvas)
 
-listenToMouse()
+listenToUser()
 
+//判断设备是否支持touch事件
 
-function listenToMouse() {
+function listenToUser() {
   var lastPoint = {x:undefined, y: undefined}
 
-  canvas.onmousedown = function(e) {
-    var x = e.clientX, y = e.clientY
-    usePaint = true
-    if(useEraser) {
-      context.clearRect(x, y, 10, 10)
-    } else {
-      lastPoint.x = x, lastPoint.y = y
+  //特性检测
+  if(document.body.ontouchstart !== undefined) {
+    //触屏设备
+    canvas.ontouchstart = function(e) {
+      console.log('开始摸我了')
+      var x = e.touches[0].clientX, y = e.touches[0].clientY
+      usePaint = true
+      if(useEraser) {
+        context.clearRect(x, y, 10, 10)
+      } else {
+        lastPoint.x = x, lastPoint.y = y
+      }
     }
-  }
-  canvas.onmousemove = function(e) {
-    var x = e.clientX, y = e.clientY
-    if(!usePaint) return 
-
-    if(useEraser) {
-      context.clearRect(x, y, 10, 10)
-    } else {
+    canvas.ontouchmove = function(e) {
+      console.log('正在摸')
+      var x = e.touches[0].clientX, y = e.touches[0].clientY
       var newPoint = {x:x, y:y}
-      drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+      if(!usePaint) return 
+  
+      if(useEraser) {
+        context.clearRect(x, y, 10, 10)
+      } else {
+        drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+      }
+      lastPoint = newPoint    }
+    canvas.ontouchend = function() {
+      console.log('摸完了')
+      usePaint = false
     }
-    lastPoint = newPoint
+  } else{
+    //非触屏设备
+    canvas.onmousedown = function(e) {
+      var x = e.clientX, y = e.clientY
+      usePaint = true
+      if(useEraser) {
+        context.clearRect(x, y, 10, 10)
+      } else {
+        lastPoint.x = x, lastPoint.y = y
+      }
+      
+    }
+    canvas.onmousemove = function(e) {
+      var x = e.clientX, y = e.clientY
+      var newPoint = {x:x, y:y}
+      if(!usePaint) return 
+  
+      if(useEraser) {
+        context.clearRect(x, y, 10, 10)
+      } else {
+        drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
+      }
+      lastPoint = newPoint
+    }
+  
+    canvas.onmouseup = function(e) {
+      usePaint = false
+    }
   }
-
-  canvas.onmouseup = function(e) {
-    usePaint = false
-  }
+  
 }
 
 
