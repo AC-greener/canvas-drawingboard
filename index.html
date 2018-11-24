@@ -10,12 +10,37 @@
       margin: 0px;
       padding: 0px;
     }
-    #canvas {
-      border: 1px solid red;
+    body {
+      position: relative;
     }
+    .utils {
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%)
+    }
+    #canvas {
+      box-sizing: border-box;
+      background: rgba(255, 0, 0, 0.411);
+      display: block;
+    }
+    #painting {
+      display: none;
+    }
+    .utils.x > #eraser {
+      display: none;
+    }
+    .utils.x > #painting {
+      display: inline;
+    }
+   
   </style>
 </head>
 <body>
+  <div id="actions" class="utils">
+    <button id="eraser">橡皮擦</button>
+    <button id="painting">画笔</button>
+  </div>
   <canvas id="canvas" width="500" height="500"></canvas>
   <script src="./index.js"></script>
 </body>
