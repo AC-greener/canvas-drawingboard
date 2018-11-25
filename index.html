@@ -7,6 +7,7 @@
   document.documentElement.clientWidth
   -->
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script src="http://at.alicdn.com/t/font_934395_hvzg50fz6ib.js"></script>
   <title>canvas 画板</title>  
   <style>
     * {
@@ -18,7 +19,7 @@
     }
     .utils {
       position: absolute;
-      top: 0;
+      top: 10px;
       left: 50%;
       transform: translateX(-50%)
     }
@@ -27,23 +28,37 @@
       background: rgba(255, 0, 0, 0.411);
       display: block;
     }
-    #painting {
-      display: none;
+
+    .icon {
+       width: 1em; height: 1em;
+       vertical-align: -0.15em;
+       fill: currentColor;
+       overflow: hidden;
     }
-    .utils.x > #eraser {
-      display: none;
+    #actions svg {
+      width: 1.8em;
+      height: 1.8em;
+      transition: all .3s;
     }
-    .utils.x > #painting {
-      display: inline;
-    }
-   
+   #actions svg.active {
+     fill: red;
+     transform: scale(1.2)
+   }
+   #eraser {
+     fill: black
+   }
   </style>
 </head>
 <body>
   <div id="actions" class="utils">
-    <button id="eraser">橡皮擦</button>
-    <button id="painting">画笔</button>
+      <svg class="icon" id="pen" >
+          <use xlink:href="#icon-pen"></use>  
+      </svg>
+      <svg class="icon" id="eraser">
+          <use xlink:href="#icon-eraser"></use>
+      </svg>
   </div>
+ 
   <canvas id="canvas" width="500" height="500"></canvas>
   <script src="./index.js"></script>
 </body>

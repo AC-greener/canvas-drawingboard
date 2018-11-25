@@ -6,16 +6,18 @@ var context = canvas.getContext('2d')
 var useEraser= false
 var usePaint = false
 
-painting.onclick = function() {
+pen.onclick = function() {
   useEraser = false
-  actions.className = 'utils'
+  pen.classList.add('active')
+  eraser.classList.remove('active')
 }
 eraser.onclick = function() {
   useEraser = true
-  actions.className = 'utils x'
+  pen.classList.remove('active')
+  eraser.classList.add('active')
 }
 
-autoSizeCanvasSize(canvas)
+autoSetCanvasSize(canvas)
 
 listenToUser()
 
@@ -86,7 +88,7 @@ function listenToUser() {
 }
 
 
-function autoSizeCanvasSize(canvas) {
+function autoSetCanvasSize(canvas) {
   changeCanvasWidth(canvas)
   
   window.onresize = function() {
