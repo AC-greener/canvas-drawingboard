@@ -111,7 +111,7 @@ function listenToUser() {
       if(!usePaint) return 
   
       if(useEraser) {
-        context.clearRect(x, y, 10, 10)
+        context.clearRect(x, y, 14, 14)
       } else {
         drawLine(lastPoint.x, lastPoint.y, newPoint.x, newPoint.y)
       }
@@ -126,7 +126,7 @@ function listenToUser() {
       var x = e.clientX, y = e.clientY
       usePaint = true
       if(useEraser) {
-        context.clearRect(x, y, 10, 10)
+        context.clearRect(x, y, 14, 14)
       } else {
         lastPoint.x = x, lastPoint.y = y
       }
