@@ -2,10 +2,27 @@
 var canvas = document.getElementById('canvas')
 
 var context = canvas.getContext('2d')
-
+var lineWidth = 3
 var useEraser= false
 var usePaint = false
 
+clear.onclick = function() {
+  context.clearRect(0, 0, canvas.width, canvas.height)
+}
+
+download.onclick = function() {
+  var url = canvas.toDataURL('image/png')
+  var a = document.createElement('a')
+  a.href = url
+  a.download = 'canvas'
+  a.click()
+}
+thin.onclick = function() {
+  lineWidth = 3
+}
+thick.onclick = function() {
+  lineWidth = 5
+}
 pen.onclick = function() {
   useEraser = false
   pen.classList.add('active')
@@ -17,6 +34,54 @@ eraser.onclick = function() {
   eraser.classList.add('active')
 }
 
+black.onclick = function() {
+  context.strokeStyle = 'black'
+  black.classList.add('active')
+  red.classList.remove('active')
+  yellow.classList.remove('active')
+  green.classList.remove('active')
+
+  pen.classList.add('black')
+  pen.classList.remove('red')
+  pen.classList.remove('yellow')
+  pen.classList.remove('green')
+}
+red.onclick = function() {
+  context.strokeStyle = 'red'
+  red.classList.add('active')
+  black.classList.remove('active')
+  yellow.classList.remove('active')
+  green.classList.remove('active')
+
+  pen.classList.remove('black')
+  pen.classList.add('red')
+  pen.classList.remove('yellow')
+  pen.classList.remove('green')
+}
+yellow.onclick = function() {
+  context.strokeStyle = 'yellow'
+  black.classList.remove('active')
+  red.classList.remove('active')
+  yellow.classList.add('active')
+  green.classList.remove('active')
+
+  pen.classList.remove('black')
+  pen.classList.remove('red')
+  pen.classList.add('yellow')
+  pen.classList.remove('green')
+}
+green.onclick = function() {
+  context.strokeStyle = 'green'
+  black.classList.remove('active')
+  red.classList.remove('active')
+  yellow.classList.remove('active')
+  green.classList.add('active')
+
+  pen.classList.remove('black')
+  pen.classList.remove('red')
+  pen.classList.remove('yellow')
+  pen.classList.add('green')
+}
 autoSetCanvasSize(canvas)
 
 listenToUser()
@@ -107,8 +172,7 @@ function changeCanvasWidth(canvas) {
 
 function drawLine(x1, y1, x2, y2) {
   context.beginPath()
-  
-  context.lineWidth = 5
+  context.lineWidth = lineWidth
   context.moveTo(x1, y1)
   context.lineTo(x2, y2)
   context.stroke()   //描边

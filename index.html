@@ -7,9 +7,12 @@
   document.documentElement.clientWidth
   -->
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <script src="http://at.alicdn.com/t/font_934395_hvzg50fz6ib.js"></script>
+  <script src="http://at.alicdn.com/t/font_934395_yihgzl56uwq.js"></script>
   <title>canvas 画板</title>  
   <style>
+    ul, ol {
+      list-style: none;
+    }
     * {
       margin: 0px;
       padding: 0px;
@@ -38,27 +41,101 @@
     #actions svg {
       width: 1.8em;
       height: 1.8em;
+      margin: 3px;
+      cursor: pointer;
+
       transition: all .3s;
     }
-   #actions svg.active {
+    #actions #clear {
+      width: 1.4em;
+      height: 1.4em;
+    }
+    #actions #download {
+      width: 1.6em;
+      height: 1.6em;
+    }
+   #actions #pen.active {
+     fill: black;
+     transform: scale(1.2)
+   }
+   #actions #eraser.active {
      fill: red;
      transform: scale(1.2)
    }
+   #actions #pen.black {
+     fill: black;
+   }
+   #actions #pen.red {
+     fill: red;
+   }
+   #actions #pen.yellow {
+     fill: yellow;
+   }
+   #actions #pen.green {
+     fill: green;
+   }
    #eraser {
      fill: black
+   }
+   ol.color {
+     position: absolute;
+     left: 15px;
+     top: 30px;
+   }
+   ol.color>li {
+     width: 20px;
+     height: 20px;
+     border-radius: 50%;
+     margin-bottom: 8px;
+     transition: all .2s;
+   }
+   ol.color>li.black {
+     background-color: black;
+   }
+   ol.color>li.red {
+     background-color: red;
+   }
+   ol.color>li.yellow {
+     background-color: yellow;
+   }
+   ol.color>li.green {
+     background-color: green;
+   }
+   ol>li.active {
+     transform: scale(1.2)
+   }
+   ol.lineWidth {
+     position: absolute;
+     left: 15px;
+     top: 150px;
    }
   </style>
 </head>
 <body>
   <div id="actions" class="utils">
-      <svg class="icon" id="pen" >
+      <svg class="icon active " id="pen" >
           <use xlink:href="#icon-pen"></use>  
       </svg>
       <svg class="icon" id="eraser">
           <use xlink:href="#icon-eraser"></use>
       </svg>
+      <svg class="clear" id="clear">
+          <use xlink:href="#icon-clear1"></use>
+      </svg>
+      <svg class="download" id="download">
+          <use xlink:href="#icon-Save"></use>
+      </svg>
   </div>
- 
+  <ol class="color">
+    <li id="black" class="black active"></li>
+    <li id="red" class="red "></li>
+    <li id="yellow" class="yellow"></li>
+    <li id="green" class="green"></li>
+  </ol>
+  <ol class="lineWidth">
+    <li id="thin">细</li>
+    <li id="thick">粗</li>
+  </ol>
   <canvas id="canvas" width="500" height="500"></canvas>
   <script src="./index.js"></script>
 </body>
